@@ -13,3 +13,6 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+
+constexpr int WM_RESTORE_VOLUME(WM_USER + 0);
+constexpr int WM_STOP_LISTENING(WM_USER + 1);
