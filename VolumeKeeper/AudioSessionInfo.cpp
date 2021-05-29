@@ -3,9 +3,20 @@
 #include "framework.h"
 #include <Psapi.h>
 #include <Shlwapi.h>
+#include "VolumeManager.h"
 
 extern GUID g_guidMyContext;
 extern DWORD g_threadId;
+
+AudioSessionInfo::AudioSessionInfo(VolumeManager* volume_manager, IAudioSessionControl2* pSessionControl) :
+	_cRef(1),
+	_volume_manager(volume_manager),
+	_pSessionControl(pSessionControl),
+	_isSystemSession(false),
+	_volume(0),
+	_volumeBeforeJump(0)
+{
+}
 
 ULONG AudioSessionInfo::AddRef()
 {
@@ -75,6 +86,8 @@ HRESULT AudioSessionInfo::OnSimpleVolumeChanged(float NewVolume, BOOL NewMute, L
 		// No change in volume
 		return S_OK;
 	}
+
+	float old_volume = _volume;
 	
 	if (*EventContext == g_guidMyContext)
 	{
@@ -100,6 +113,8 @@ HRESULT AudioSessionInfo::OnSimpleVolumeChanged(float NewVolume, BOOL NewMute, L
 	}
 
 	_volume = NewVolume;
+	_volume_manager->NotifyVolumeChanged(this, old_volume, NewVolume);
+	
 	return S_OK;
 }
 

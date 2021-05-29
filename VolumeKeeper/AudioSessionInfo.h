@@ -1,30 +1,29 @@
 #pragma once
+
 #include <audiopolicy.h>
 #include <string>
+
+class IAudioSessionControl2;
+class VolumeManager;
 
 class AudioSessionInfo sealed:
     public IAudioSessionEvents
 {
 	LONG _cRef;
-    IAudioSessionControl2* _pSessionControl;
+	VolumeManager* _volume_manager;
+	IAudioSessionControl2* _pSessionControl;
     std::wstring _title;
     bool _isSystemSession;
     float _volume;
     float _volumeBeforeJump;
 
 public:
-	AudioSessionInfo(IAudioSessionControl2* pSessionControl) :
-		_cRef(1),
-		_pSessionControl(pSessionControl),
-        _isSystemSession(false),
-		_volume(0),
-        _volumeBeforeJump(0)
-	{
-	}
+
+	AudioSessionInfo(VolumeManager* volume_manager, IAudioSessionControl2* pSessionControl);
 
 	~AudioSessionInfo()
 		= default;
-
+	
 	// IUnknown
 	ULONG STDMETHODCALLTYPE AddRef();
 	ULONG STDMETHODCALLTYPE Release();
@@ -45,5 +44,10 @@ public:
     void StartListening();
     void StopListening();
 	void RestoreVolume();
+
+	float getLastVolume() const { return _volume; }
+	void setLastVolume(float value) { _volume = value; }
+	
+	std::wstring getTitle() const { return _title; }
 };
 
