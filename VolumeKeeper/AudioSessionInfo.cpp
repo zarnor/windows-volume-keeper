@@ -76,6 +76,20 @@ HRESULT AudioSessionInfo::OnGroupingParamChanged(LPCGUID NewGroupingParam, LPCGU
 
 HRESULT AudioSessionInfo::OnStateChanged(AudioSessionState NewState)
 {
+	switch (NewState)
+	{
+	case AudioSessionStateActive:
+		OutputDebugStringA("OnStateChanged - active\n");
+		break;
+	case AudioSessionStateInactive:
+		OutputDebugStringA("OnStateChanged - inactive\n");
+		break;
+	case AudioSessionStateExpired:
+		OutputDebugStringA("OnStateChanged - expired\n");
+		PostThreadMessage(g_threadId, WM_STOP_LISTENING, reinterpret_cast<WPARAM>(this), NULL);
+		break;
+	}
+	
 	return S_OK;
 }
 
@@ -102,7 +116,6 @@ HRESULT AudioSessionInfo::OnSimpleVolumeChanged(float NewVolume, BOOL NewMute, L
 	OutputDebugStringW(std::to_wstring(_volume).c_str());
 	OutputDebugStringA(" --> ");
 	OutputDebugStringW(std::to_wstring(NewVolume).c_str());
-	
 	OutputDebugStringA("\n");
 
 	if (_volume < 0.8F && NewVolume == 1.0F)
