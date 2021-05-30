@@ -3,7 +3,6 @@
 #include <audiopolicy.h>
 #include <string>
 
-class IAudioSessionControl2;
 class VolumeManager;
 
 class AudioSessionInfo sealed:
