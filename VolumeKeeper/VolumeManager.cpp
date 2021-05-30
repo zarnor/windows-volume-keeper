@@ -171,7 +171,7 @@ void VolumeManager::BeginListeningSession(IAudioSessionControl* pSessionControl)
 
     volume = sessionInfo->getLastVolume();
     title = sessionInfo->getTitle();
-    if (volume == 100.0F)
+    if (volume == 1.0F)
     {
         const bool previous_volume_is_known = _seenVolumes.find(title) != _seenVolumes.end();
         const bool default_volume_is_known = _seenVolumes.find(L"*") != _seenVolumes.end();
@@ -181,14 +181,10 @@ void VolumeManager::BeginListeningSession(IAudioSessionControl* pSessionControl)
             const float volume_to_set = previous_volume_is_known ?
                 _seenVolumes[title] :
                 _seenVolumes[L"*"];
-    		
+
             sessionInfo->setLastVolume(volume_to_set);
-            PostThreadMessage(g_threadId, WM_RESTORE_VOLUME, reinterpret_cast<WPARAM>(this), NULL);
+            PostThreadMessage(g_threadId, WM_RESTORE_VOLUME, reinterpret_cast<WPARAM>(sessionInfo), NULL);
     	}
-        else
-        {
-            const auto last_seen_volume = _seenVolumes[title];
-        }
     }
 	else
     {

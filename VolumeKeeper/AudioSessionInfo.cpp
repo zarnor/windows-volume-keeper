@@ -153,6 +153,7 @@ void AudioSessionInfo::StartListening()
 	ISimpleAudioVolume* volume;
 	if (SUCCEEDED(_pSessionControl->QueryInterface(_uuidof(ISimpleAudioVolume), (void**)&volume))) {
 		volume->GetMasterVolume(&_volume);
+		_volumeBeforeJump = _volume;
 	}
 
 	if (_isSystemSession)

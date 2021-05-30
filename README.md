@@ -6,6 +6,7 @@ Prevents sudden volume jumps to 100 % in Windows 10.
 
 - Prevents sudden volume jumps
 - Restores volumes on program startup and on new application startup
+- Set default volume for new application to a specific value
 
 ## Usage
 
@@ -19,7 +20,6 @@ For whatever reason the system volume randomly resets to 100 % in Windows 10. Th
 
 ## Possibly planned features
 
-1. Set volume for all new applications to specified value
 1. Configuration dialog or system tray icon + menu for settings
 
 ## License

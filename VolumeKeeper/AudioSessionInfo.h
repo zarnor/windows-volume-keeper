@@ -44,8 +44,8 @@ public:
     void StopListening();
 	void RestoreVolume();
 
-	float getLastVolume() const { return _volume; }
-	void setLastVolume(float value) { _volume = value; }
+	float getLastVolume() const { return _volumeBeforeJump; }
+	void setLastVolume(float value) { _volumeBeforeJump = value; }
 	
 	std::wstring getTitle() const { return _title; }
 };
