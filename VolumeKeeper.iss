@@ -1,16 +1,18 @@
-#define MyAppName "Windows Volume Keeper"
-#define MyAppVersion "0.9"
-#define MyAppExeName "VolumeKeeper.exe"
+#define AppName "Windows Volume Keeper"
+#ifndef AppVersion
+  #define AppVersion "DEV"
+#endif
+#define AppExeName "VolumeKeeper.exe"
 
 [Setup]
 AppId={{C06911DB-CA60-4008-B360-519C2BD7D884}
-AppName={#MyAppName}
-AppVersion={#MyAppVersion}
+AppName={#AppName}
+AppVersion={#AppVersion}
 DisableDirPage=yes
-DefaultDirName={autopf}\{#MyAppName}
+DefaultDirName={autopf}\{#AppName}
 DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
-OutputBaseFilename={#MyAppName} {#MyAppVersion} Setup
+OutputBaseFilename={#AppName} {#AppVersion} Setup
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -19,14 +21,14 @@ WizardStyle=modern
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
-Source: "x64\Release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "x64\Release\{#AppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "VolumeKeeper\volumes.dat.default"; DestDir: "{app}"; DestName: "volumes.dat"; Flags: ignoreversion onlyifdoesntexist
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName} Configuration"; Filename: "{app}\{#MyAppExeName}"; Parameters: "--config"
+Name: "{autoprograms}\{#AppName} Configuration"; Filename: "{app}\{#AppExeName}"; Parameters: "--config"
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Parameters: "--config"; Flags: nowait postinstall skipifsilent; Description: "Launch {#StringChange(MyAppName, '&', '&&')} Configuration"
+Filename: "{app}\{#AppExeName}"; Parameters: "--config"; Flags: nowait postinstall skipifsilent; Description: "Launch {#StringChange(AppName, '&', '&&')} Configuration"
 
 [UninstallRun]
 Filename: "{cmd}"; Parameters: "/C ""taskkill /im volumekeeper.exe /f /t"; Flags: runhidden; RunOnceId: "killvolumekeeperprocess"
