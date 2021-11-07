@@ -3,7 +3,10 @@ $innoSetupExecutable = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
 
 # --- Helper functions
 function Get-GitTaggedVersion {
-    $tag = & git tag --points-at HEAD
+    $tag = & git tag --points-at HEAD v*
+    if ("$tag".StartsWith("v")) {
+        $tag = "$tag".Substring(1)
+    }
     return $tag
 }
 
@@ -50,7 +53,7 @@ if ($isTagged) {
         $gitVersion = $tag
     }
 } else {
-    Write-Warning "Current commit is not tagged. Building version $gitVersion"
+    Write-Warning "Current commit is not tagged with version tag. Building version $gitVersion"
 }
 
 # --- Compile solution
