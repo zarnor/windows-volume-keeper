@@ -21,6 +21,8 @@ public:
 	void BeginListeningSession(IAudioSessionControl* pSessionControl);
 	void StopListening(AudioSessionInfo* info);
 	void NotifyVolumeChanged(AudioSessionInfo* info, float old_volume, float new_volume);
+	float getDefaultVolume();
+	void setDefaultVolume(float volume);
 
 private:
 	

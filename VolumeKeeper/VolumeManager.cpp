@@ -221,3 +221,22 @@ void VolumeManager::NotifyVolumeChanged(AudioSessionInfo* info, float old_volume
 
     this->SaveSeenVolumes();
 }
+
+float VolumeManager::getDefaultVolume()
+{
+    auto it = _seenVolumes.find(L"*");
+    if (it == _seenVolumes.end())
+    {
+        return 1.0F;
+    }
+    else
+    {
+        return it->second;
+    }
+}
+
+void VolumeManager::setDefaultVolume(float volume)
+{
+    this->_seenVolumes.insert_or_assign(L"*", volume);
+    this->SaveSeenVolumes();
+}
