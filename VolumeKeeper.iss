@@ -34,4 +34,4 @@ Filename: "{app}\{#AppExeName}"; Parameters: "--config"; Flags: nowait postinsta
 Filename: "{cmd}"; Parameters: "/C ""taskkill /im volumekeeper.exe /f /t"; Flags: runhidden; RunOnceId: "killvolumekeeperprocess"
 
 [Registry]
-Root: "HKCU"; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "VolumeKeeper"; ValueData: "{app}"; Flags: createvalueifdoesntexist uninsdeletevalue
+Root: "HKCU"; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "VolumeKeeper"; ValueData: """{app}\{#AppExeName}"""; Flags: uninsdeletevalue
