@@ -8,11 +8,13 @@ Prevents sudden volume jumps to 100 % in Windows 10.
 - Restores volumes on program startup and on new application startup
 - Set default volume for new application to a specific value
 
-## Usage
+## Compiling from source
 
-1. Compile in Visual Studio
-1. Run Volumekeeper.exe --install (Schedules to run on startup)
-1. Run Volumekeeper.exe --uninstall (To remove running on startup)
+1. Make sure prerequisites are installed:
+    1. Microsoft Visual Studio with "Desktop Development with c++" -worload
+    1. Inno Setup 6.x (https://jrsoftware.org/isdl.php")
+1. Open Developer PowerShell for VS 2019
+1. Run the .\Scripts\Build installer.ps1 -script
 
 ## Motivation
 
